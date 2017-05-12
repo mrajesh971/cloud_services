@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Employee- Bootstrap Admin Template</title>
+    <title>SB Admin - Bootstrap Admin Template</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,13 +17,17 @@
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+    <!-- Morris Charts CSS -->
+    <link href="css/plugins/morris.css" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    
-    
-<script src="sorttable.js"></script>
-<script>
+
+       <script type="text/javascript">
+
+//$(document).ready(function(){
 function load_customerdetails() {
+
  jQuery.ajax({
      url:"http://cloudserviceprojectapi.azurewebsites.net/api/Customers",
      type:"GET",
@@ -37,17 +41,22 @@ function load_customerdetails() {
              $("#table-customer").append($('<tr/>').append($('<td/>').append(item.customerNumber)).append($('<td/>').append(item.customerName)).append($('<td/>').append(item.city)).append($('<td/>').append(item.state)).append($('<td/>').append(item.postalCode)).append($('<td/>').append(item.country)).append($('<td/>').append(item.salesRepEmployeeNumber)).append($('<td/>').append(item.creditLimit)).append($('<td><input class="delete_button" type="button" value="Delete"/></td>')));
 
                  $("#table-customer").on('click','.delete_button',function(){
-                                     $(this).parent().parent().remove();
-                         
-                   
+                   //  alert("The id is "+ $(item).val());
+                    $(this).parent().parent().remove();
                 });
 
+
                 i++;
+
              });
+
+
+        
      },
 });
 
 }
+        
 window.onload = load_customerdetails;
 
 </script>
@@ -68,19 +77,18 @@ window.onload = load_customerdetails;
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            
+           
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                
-                
+              
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Manager <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>Employee<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
                         </li>
-                      
+                       
                         <li class="divider"></li>
                         <li>
                             <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
@@ -92,13 +100,10 @@ window.onload = load_customerdetails;
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
-                        <a href="managerDashboard.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="employee-details.html"><i class="fa fa-fw fa-bar-chart-o"></i> Employee Details</a>
+                        <a href="indexemp.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li class="active">
-                        <a href="customer-details.html"><i class="fa fa-fw fa-table"></i> Customer Details</a>
+                        <a href="customer-details-emp.html"><i class="fa fa-fw fa-bar-chart-o"></i> Customer Details</a>
                     </li>
                     <li>
                         <a href="payment-details.html"><i class="fa fa-fw fa-table"></i> Payment Details</a>
@@ -120,25 +125,24 @@ window.onload = load_customerdetails;
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Tables
+                            Customer Details
                         </h1>
                         <ol class="breadcrumb">
                             <li>
-                                <i class="fa fa-dashboard"></i>  <a href="managerDashboard.html">Dashboard</a>
+                                <i class="fa fa-dashboard"></i>  <a href="indexemp.html">Sales</a>
                             </li>
-                            
+                           
                         </ol>
                     </div>
                 </div>
-                <!-- /.row -->
 
-                <div class="row">
+                <!--Adding table body   -->
+                  <div class="row">
                    
                     <div class="col-lg-6">
                         <h2>Customer Details</h2>
                         <div class="table-customers">
-                       
-                           <table id="table-customer" class="table table-bordered table-hover table-striped sortable">
+                            <table id="table-customer" class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <th>Customer Number</th>
@@ -160,14 +164,8 @@ window.onload = load_customerdetails;
                         </div>
                     </div>
                 </div>
-                <!-- /.row -->
-
+                <!--Customer table body ends -->
                
-                <!-- /.row -->
-
-                
-            
-                <!-- /.row -->
 
             </div>
             <!-- /.container-fluid -->
@@ -183,6 +181,19 @@ window.onload = load_customerdetails;
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="js/plugins/morris/raphael.min.js"></script>
+    <script src="js/plugins/morris/morris.min.js"></script>
+    <script src="js/plugins/morris/morris-data.js"></script>
+
+    <!-- Flot Charts JavaScript -->
+    <!--[if lte IE 8]><script src="js/excanvas.min.js"></script><![endif]-->
+    <script src="js/plugins/flot/jquery.flot.js"></script>
+    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="js/plugins/flot/flot-data.js"></script>
 
 </body>
 

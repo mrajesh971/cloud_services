@@ -19,35 +19,33 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    
-    
-<script src="sorttable.js"></script>
-<script>
+
+      <script type="text/javascript">
+
+//$(document).ready(function(){
 function load_customerdetails() {
+
  jQuery.ajax({
-     url:"http://cloudserviceprojectapi.azurewebsites.net/api/Customers",
+     url:"http://cloudserviceprojectapi.azurewebsites.net/api/Payments",
      type:"GET",
      contentType:'application/json',
      dataType:"json",
      success:function(data) {
          var i=1; 
-         $("#table-customer tbody tr").remove();
+         $("#table-payment tbody tr").remove();
              $.each(data, function (i, item) { 
                 var status;
-             $("#table-customer").append($('<tr/>').append($('<td/>').append(item.customerNumber)).append($('<td/>').append(item.customerName)).append($('<td/>').append(item.city)).append($('<td/>').append(item.state)).append($('<td/>').append(item.postalCode)).append($('<td/>').append(item.country)).append($('<td/>').append(item.salesRepEmployeeNumber)).append($('<td/>').append(item.creditLimit)).append($('<td><input class="delete_button" type="button" value="Delete"/></td>')));
-
-                 $("#table-customer").on('click','.delete_button',function(){
-                                     $(this).parent().parent().remove();
-                         
-                   
-                });
-
+             $("#table-payment").append($('<tr/>').append($('<td/>').append(item.customerNumber)).append($('<td/>').append(item.checkNumber)).append($('<td/>').append(item.paymentDate)).append($('<td/>').append(item.amount)));
                 i++;
-             });
+                  
+                 
+         });
+        
      },
 });
 
 }
+        
 window.onload = load_customerdetails;
 
 </script>
@@ -68,19 +66,18 @@ window.onload = load_customerdetails;
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            
+              
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                
-                
+             
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Manager <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Manager<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
                         </li>
-                      
+                       
                         <li class="divider"></li>
                         <li>
                             <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
@@ -91,16 +88,16 @@ window.onload = load_customerdetails;
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li>
+                    <li >
                         <a href="managerDashboard.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href="employee-details.html"><i class="fa fa-fw fa-bar-chart-o"></i> Employee Details</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="customer-details.html"><i class="fa fa-fw fa-table"></i> Customer Details</a>
                     </li>
-                    <li>
+                     <li class="active">
                         <a href="payment-details.html"><i class="fa fa-fw fa-table"></i> Payment Details</a>
                     </li>
                     <li>
@@ -126,30 +123,23 @@ window.onload = load_customerdetails;
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="managerDashboard.html">Dashboard</a>
                             </li>
-                            
+                           
                         </ol>
                     </div>
                 </div>
-                <!-- /.row -->
 
                 <div class="row">
                    
                     <div class="col-lg-6">
-                        <h2>Customer Details</h2>
-                        <div class="table-customers">
-                       
-                           <table id="table-customer" class="table table-bordered table-hover table-striped sortable">
+                        <h2>Payment Details</h2>
+                        <div class="table-payments">
+                            <table id="table-payment" class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <th>Customer Number</th>
-                                        <th>Name</th>
-                                        <th>City</th>
-                                        <th>State</th>
-                                        <th>Postal Code</th>
-                                        <th>Country</th>
-                                        <th>Sales Rep.</th>
-                                        <th>Credit Limit</th>
-                                        <th>Delete</th>
+                                        <th>Check Number</th>
+                                        <th>Payment Date</th>
+                                        <th>Amount</th>
                                     </tr>
                                 </thead>
                                  <tbody>
@@ -160,15 +150,7 @@ window.onload = load_customerdetails;
                         </div>
                     </div>
                 </div>
-                <!-- /.row -->
-
-               
-                <!-- /.row -->
-
-                
             
-                <!-- /.row -->
-
             </div>
             <!-- /.container-fluid -->
 

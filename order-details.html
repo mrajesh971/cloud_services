@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>Employee - Bootstrap Admin Template</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,43 +17,43 @@
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="css/plugins/morris.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-      <script src="sorttable.js"></script>
-       <script type="text/javascript">
-         
-function load_employeedetails() {
+
+  <script type="text/javascript">
+
+//$(document).ready(function(){
+function load_customerdetails() {
 
  jQuery.ajax({
-     url:"http://cloudserviceprojectapi.azurewebsites.net/api/Employees",
+     url:"http://cloudserviceprojectapi.azurewebsites.net/api/OrderDetails",
      type:"GET",
      contentType:'application/json',
      dataType:"json",
      success:function(data) {
          var i=1; 
-         $("#table-employee tbody tr").remove();
+         $("#table-customer tbody tr").remove();
              $.each(data, function (i, item) { 
                 var status;
-             $("#table-employee").append($('<tr/>').append($('<td/>').append(item.lastName)).append($('<td/>').append(item.firstName)).append($('<td/>').append(item.jobTitle)).append($('<td/>').append(item.email)).append($('<td/>').append("<button type='button' id='"+i+"' style='background:none!important; color:inherit; border:none; padding:0!important; font: inherit; cursor: pointer; color:blue' data-toggle='modal' onclick='load_officedetails("+i+")' data-target='#myModal' >"+item.officeCode+'</button>')));
+             $("#table-customer").append($('<tr/>').append($('<td/>').append(item.orderNumber)).append($('<td/>').append("<button type='button' id='"+i+"' style='background:none!important; color:inherit; border:none; padding:0!important; font: inherit; cursor: pointer; color:blue' data-toggle='modal' onclick='load_officedetails("+i+")' data-target='#myModal' >"+item.productCode+'</button>')).append($('<td/>').append(item.quantityOrdered)).append($('<td/>').append(item.priceEach)).append($('<td/>').append(item.orderLineNumber)).append($('<td/>').append(item.productLine)));
                 i++;
+                   
          });
+        
      },
 });
 
 }
-window.onload = load_employeedetails;
-           
-           
+        
+window.onload = load_customerdetails;
+
                     
 function load_officedetails(i) {
-console.log("sanaz "+$("#table-employee #"+i).text());
+//console.log("sanaz "+$("#table-employee #"+i).text());
  jQuery.ajax({
     
      
-       url:"http://cloudserviceprojectapi.azurewebsites.net/api/Offices?officeCode=" + $("#table-employee #"+i).text(),
+       url:"http://cloudserviceprojectapi.azurewebsites.net/api/Products?productCode=" + $("#table-customer #"+i).text(),
     
      type:"GET",
      contentType:'application/json',
@@ -61,11 +61,9 @@ console.log("sanaz "+$("#table-employee #"+i).text());
      success:function(data) {
          var i=1; 
          $("#table-office tbody tr").remove();
-         console.log(data.officeCode);
-             
-               
-                
-             $("#table-office").append($('<tr/>').append($('<td/>').append(data.city)).append($('<td/>').append(data.phone)).append($('<td/>').append(data.addressLine1)).append($('<td/>').append(data.state)).append($('<td/>').append(data.country)).append($('<td/>').append(data.postalCode)));
+         console.log(data.productCode);
+                  
+             $("#table-office").append($('<tr/>').append($('<td/>').append(data.productCode)).append($('<td/>').append(data.productName)).append($('<td/>').append(data.productLine)).append($('<td/>').append(data.productVendor)).append($('<td/>').append(data.productDescription)).append($('<td/>').append(data.MSRP)));
                 
        
          console.log(data);
@@ -73,8 +71,7 @@ console.log("sanaz "+$("#table-employee #"+i).text());
 });
 
 }
-           
-     
+
 
 </script>
 
@@ -94,18 +91,13 @@ console.log("sanaz "+$("#table-employee #"+i).text());
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+        
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                   
-                    <ul class="dropdown-menu message-dropdown">
-                     
-                    </ul>
-                </li>
                 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>Manager<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Manager <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -120,26 +112,24 @@ console.log("sanaz "+$("#table-employee #"+i).text());
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
-               <ul class="nav navbar-nav side-nav">
+                <ul class="nav navbar-nav side-nav">
                     <li >
                         <a href="managerDashboard.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="employee-details.html"><i class="fa fa-fw fa-bar-chart-o"></i> Employee Details</a>
                     </li>
                     <li>
                         <a href="customer-details.html"><i class="fa fa-fw fa-table"></i> Customer Details</a>
                     </li>
-                    <li>
+                     <li>
                         <a href="payment-details.html"><i class="fa fa-fw fa-table"></i> Payment Details</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="order-details.html"><i class="fa fa-fw fa-edit"></i> Order Details</a>
                     </li>
                    
                 </ul>
-                  
-              
             </div>
             <!-- /.navbar-collapse -->
         </nav>
@@ -147,7 +137,9 @@ console.log("sanaz "+$("#table-employee #"+i).text());
         <div id="page-wrapper">
 
             <div class="container-fluid">
-                    <div class="row">
+
+                <!-- Page Heading -->
+                <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Tables
@@ -156,24 +148,26 @@ console.log("sanaz "+$("#table-employee #"+i).text());
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="managerDashboard.html">Dashboard</a>
                             </li>
-                            
+                           
                         </ol>
                     </div>
                 </div>
-                <!-- Page Heading -->
+               
                 <div class="row">
-                     <div class="col-lg-6">
-                        <h2>Employee Details</h2>
-                        <div class="table-employees">
-                            <table id="table-employee" class="table table-bordered table-hover table-striped sortable">
+                   
+                    <div class="col-lg-6">
+                        <h2>Order Details</h2>
+                        <div class="table-customers">
+                            <table id="table-customer" class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Job Title</th>
-                                        <th>Email</th>
-                                        <th id="offCode">Office Code</th>
-                                    </tr>
+                                        <th>Order Number</th>
+                                        <th>Product Code</th>
+                                        <th>Quantity Ordered</th>
+                                        <th>Price($)</th>
+                                        <th>Order Line Number</th>
+                                        <th>Product Line </th>
+                                     </tr>
                                 </thead>
                                  <tbody>
                                     <tr>
@@ -183,34 +177,29 @@ console.log("sanaz "+$("#table-employee #"+i).text());
                         </div>
                     </div>
                 </div>
-                </div>
 
-            </div>
-            <!-- /.container-fluid -->
-        
-        <!-- Modal -->
+
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
+   <!-- Modal content added!!-->
+    <div class="modal-content" style="width:900px;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Office Details</h4>
-      </div>
+        <!--  <h4 class="modal-title">Product Details</h4> -->
+       </div>
       <div class="modal-body">
-        <div class="col-lg-6">
-                        <h2>Employee Details</h2>
+       <!--  <div class="col-lg-6"> -->
+                        <h2>Product Details</h2>
                         <div class="table-offices">
-                            <table id="table-office" class="table table-bordered table-hover table-striped">
+                            <table id="table-office" class="table table-bordered table-hover table-striped" style="width:800px;">
                                 <thead>
                                     <tr>
-                                        <th>City</th>
-                                        <th>Phone</th>
-                                        <th>Address Line 1</th>
-                                        <th>State</th>
-                                        <th>Country</th>
-                                        <th>Postal Code</th>
+                                        <th>Product Code</th>
+                                        <th>Product Name</th>
+                                        <th>Product Line</th>
+                                        <th>Product Vendor</th>
+                                        <th>Product Description</th>
+                                        <th>MSRP</th>
                                     </tr>
                                 </thead>
                                  <tbody>
@@ -219,20 +208,24 @@ console.log("sanaz "+$("#table-employee #"+i).text());
                                     </tbody>
                             </table>
                         </div>
-                    </div>
+                    <!-- </div> -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
-
-  </div>
 </div>
+</div>
+
+
+
+            </div>
+            <!-- /.container-fluid -->
 
         </div>
         <!-- /#page-wrapper -->
 
-    
+    </div>
     <!-- /#wrapper -->
 
     <!-- jQuery -->
@@ -240,19 +233,6 @@ console.log("sanaz "+$("#table-employee #"+i).text());
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="js/plugins/morris/raphael.min.js"></script>
-    <script src="js/plugins/morris/morris.min.js"></script>
-    <script src="js/plugins/morris/morris-data.js"></script>
-
-    <!-- Flot Charts JavaScript -->
-    <!--[if lte IE 8]><script src="js/excanvas.min.js"></script><![endif]-->
-    <script src="js/plugins/flot/jquery.flot.js"></script>
-    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
-    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
-    <script src="js/plugins/flot/flot-data.js"></script>
 
 </body>
 
